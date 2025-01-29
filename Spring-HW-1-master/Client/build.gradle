@@ -1,11 +1,10 @@
 plugins {
-    id 'java'           // это java-приложение
+    id 'java'
 }
 
 group = 'org.junior'
 version = '1.0-SNAPSHOT'
 
-// подключаем локальный и удаленный репозитории Maven
 repositories {
     mavenLocal()
     mavenCentral()
@@ -17,23 +16,20 @@ dependencies {
     implementation('org.junior.chat.common:Chat-common:1.0-SNAPSHOT')
 }
 
-// кодировка для сорсов и генерируемой документации + для тестов
 compileJava.options.encoding = 'UTF-8'
 javadoc.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
 
-// задаём кодировку для компилятора
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-// прописываем манифест для JAR
 tasks.jar {
     manifest {
         attributes(
                 'Implementation-Title': 'Client chat application',
                 'Implementation-Version': version,
-                'Main-Class':'org.junior.Main')     // точка входа в программу
+                'Main-Class':'org.junior.Main')
     }
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
